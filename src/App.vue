@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
+  <header class="hidden">
     <nav>
       <RouterLink to="/">Home</RouterLink>
     </nav>
