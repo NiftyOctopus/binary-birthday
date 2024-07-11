@@ -6,16 +6,15 @@ const store = useBirthdayStore()
 </script>
 
 <template>
-  <main class="absolute inset-0 flex justify-center items-center">
+  <main class="absolute inset-0 flex justify-center items-center gap-5">
     <div>
       <button @click="store.earlier">Earlier</button>
-      <p>{{ store.min?.toLocaleDateString() }}</p>
     </div>
 
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center gap-3">
       <h2 class="text-xl">Is this your birthday?</h2>
       <h1 class="text-3xl">{{ store.guess.toLocaleDateString() }}</h1>
-      <p>15 Guesses</p>
+      <p>{{ store.count }} Guesses</p>
       <div v-if="store.found">
         <p>Congratulations! It's your birthday!</p>
       </div>
@@ -23,7 +22,6 @@ const store = useBirthdayStore()
 
     <div>
       <button @click="store.later">Later</button>
-      <p>{{ store.max?.toLocaleDateString() }}</p>
     </div>
   </main>
 </template>

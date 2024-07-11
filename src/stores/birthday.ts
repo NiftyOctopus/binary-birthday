@@ -2,7 +2,10 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useBirthdayStore = defineStore('birthday', () => {
-  const guess = ref(getStartingGuess())
+  const guesses = ref<Date[]>([getStartingGuess()])
+
+  const guess = computed(() => guesses.value[guesses.value.length - 1])
+  const count = computed(() => guesses.value.length)
 
   const min = ref<Date | null>(null)
   const max = ref<Date | null>(null)
@@ -46,7 +49,7 @@ export const useBirthdayStore = defineStore('birthday', () => {
     }
 
     // Update the guess
-    guess.value = new Date(nextGuess)
+    updateGuess(nextGuess)
   }
 
   function later() {
@@ -67,7 +70,7 @@ export const useBirthdayStore = defineStore('birthday', () => {
     }
 
     // Update the guess
-    guess.value = new Date(nextGuess)
+    updateGuess(nextGuess)
   }
 
   function addYears(date: Date, years: number) {
@@ -76,5 +79,9 @@ export const useBirthdayStore = defineStore('birthday', () => {
     return newDate
   }
 
-  return { guess, min, max, earlier, later, found }
+  function updateGuess(newGuess: Date) {
+    guesses.value.push(newGuess)
+  }
+
+  return { guess, count, min, max, earlier, later, found }
 })
