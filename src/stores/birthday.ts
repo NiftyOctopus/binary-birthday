@@ -10,7 +10,15 @@ export const useBirthdayStore = defineStore('birthday', () => {
   const min = ref<Date | null>(null)
   const max = ref<Date | null>(null)
 
+  interface DateRange {
+    min: Date
+    max: Date
+    days: number
+  }
+  const ranges = ref<DateRange[]>([])
+
   // Computed property indicating if we found the birthday (max and min are the same)
+  // TODO: This is wrong, it just has to be the same day, not the same time.
   const found = computed(
     () => min.value && max.value && min.value.getTime() === max.value.getTime()
   )
@@ -46,6 +54,7 @@ export const useBirthdayStore = defineStore('birthday', () => {
     // We can also update the max value since we know it's earlier than the guess
     if (!max.value || guess.value < max.value) {
       max.value = new Date(guess.value)
+      updateRanges()
     }
 
     // Update the guess
@@ -67,6 +76,7 @@ export const useBirthdayStore = defineStore('birthday', () => {
     // We can also update the min value since we know it's later than the guess
     if (!min.value || guess.value > min.value) {
       min.value = new Date(guess.value)
+      updateRanges()
     }
 
     // Update the guess
@@ -79,9 +89,22 @@ export const useBirthdayStore = defineStore('birthday', () => {
     return newDate
   }
 
+  function updateRanges() {
+    if (max.value && min.value) {
+      const days = (max.value.getTime() - min.value.getTime()) / 86400000
+
+      const range = {
+        min: min.value,
+        max: max.value,
+        days: Math.round(days)
+      }
+      ranges.value = [...ranges.value, range]
+    }
+  }
+
   function updateGuess(newGuess: Date) {
     guesses.value.push(newGuess)
   }
 
-  return { guess, count, min, max, earlier, later, found }
+  return { guess, count, min, max, earlier, later, found, ranges }
 })
