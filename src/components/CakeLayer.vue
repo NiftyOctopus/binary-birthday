@@ -39,6 +39,16 @@ const color = computed(() => {
 <template>
   <div class="flex" style="height: 1em">
     <div :style="{ width: offset + '%' }" class="bg-none"></div>
-    <div :style="{ width: width + '%', backgroundColor: color }" class="rounded"></div>
+    <div
+      :style="{ width: width + '%', backgroundColor: color }"
+      class="rounded relative text-xs text-slate-500"
+    >
+      <div class="absolute left-0 -translate-x-full h-full flex flex-col justify-center p-1.5">
+        {{ props.range.min.toLocaleDateString() }}
+      </div>
+      <div class="absolute right-0 translate-x-full h-full flex flex-col justify-center p-1.5">
+        {{ props.range.max.toLocaleDateString() }}
+      </div>
+    </div>
   </div>
 </template>
