@@ -17,10 +17,14 @@ import CakeGraphic from '@/components/CakeGraphic.vue'
       <div class="flex flex-col items-center gap-3">
         <h2 class="text-xl">Is this your birthday?</h2>
         <h1 class="text-3xl">{{ store.guess.toLocaleDateString() }}</h1>
-        <p>{{ store.count }} Guesses</p>
+
+        <!-- <button>That's it!</button> -->
+
         <div v-if="store.found">
           <p>Congratulations! It's your birthday!</p>
         </div>
+
+        <p>{{ store.count }} Guesses</p>
       </div>
 
       <div>

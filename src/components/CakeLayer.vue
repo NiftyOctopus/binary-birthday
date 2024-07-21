@@ -5,6 +5,7 @@ interface DateRange {
   min: Date
   max: Date
   days: number
+  hue?: number
 }
 
 const props = defineProps({
@@ -28,11 +29,16 @@ const offset = computed(() => {
 const width = computed(() => {
   return (props.range.days / props.base.days) * 100
 })
+
+const color = computed(() => {
+  const hue = props.range.hue ?? 0
+  return `hsl(${hue}, 70%, 60%)`
+})
 </script>
 
 <template>
   <div class="flex" style="height: 1em">
     <div :style="{ width: offset + '%' }" class="bg-none"></div>
-    <div :style="{ width: width + '%' }" class="bg-red-500"></div>
+    <div :style="{ width: width + '%', backgroundColor: color }" class="rounded"></div>
   </div>
 </template>

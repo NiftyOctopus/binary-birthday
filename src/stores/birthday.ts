@@ -14,6 +14,7 @@ export const useBirthdayStore = defineStore('birthday', () => {
     min: Date
     max: Date
     days: number
+    hue?: number
   }
   const ranges = ref<DateRange[]>([])
 
@@ -96,7 +97,8 @@ export const useBirthdayStore = defineStore('birthday', () => {
       const range = {
         min: min.value,
         max: max.value,
-        days: Math.round(days)
+        days: Math.round(days),
+        hue: Math.round(Math.random() * 360)
       }
       ranges.value = [...ranges.value, range]
     }
