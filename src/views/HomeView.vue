@@ -2,12 +2,13 @@
 import { useBirthdayStore } from '@/stores/birthday'
 const store = useBirthdayStore()
 
-import CakeGraphic from '@/components/CakeGraphic.vue'
+// import CakeGraphic from '@/components/CakeGraphic.vue'
+import SingleBarGraphic from '@/components/SingleBarGraphic.vue'
 </script>
 
 <template>
   <main class="absolute inset-0 flex flex-col justify-center items-center gap-5">
-    <CakeGraphic />
+    <SingleBarGraphic />
 
     <section class="flex items-center gap-5">
       <div>
